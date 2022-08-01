@@ -3,6 +3,7 @@
 from html.entities import name2codepoint
 
 # To Do:
+# fix function greet when no name
 # solution for milk input
 # crete a dictionary with price for each item
 # with the next order the robot will ask if the customer wants to repeat the next order using the variables from functions
@@ -13,7 +14,7 @@ items_without_milk_str = ', '.join(items_without_milk)
 items_with_milk = ['Latte', 'Cappuccino']
 items_with_milk_str = ', '.join(items_with_milk)
 
-def greet(greeting, name='Sweetheart'):
+def greet(greeting, name = 'Darling'):
     print("Hello! Welcome to our coffe shop.")
     name = input("What is your name?\n")
     age = int(input('What is your age, ' + name + '?\n'))
