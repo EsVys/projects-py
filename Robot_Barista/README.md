@@ -1,4 +1,4 @@
-Robot barista
+# Robot barista
 
 The purpose of this introductory project is to create an online ordering system for a coffee shop. 
 This project is based on NetworkChuck Python course episodes 02-05.
