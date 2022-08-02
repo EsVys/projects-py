@@ -1,42 +1,49 @@
-#robot barista
-
-from html.entities import name2codepoint
-
 # To Do:
-# fix function greet when no name
-# solution for milk input
-# crete a dictionary with price for each item
+# solution for milk input (dictionary)
+# create a dictionary with price for each item
 # with the next order the robot will ask if the customer wants to repeat the next order using the variables from functions
+# if the customer does not wish to repeat order start with new order
+
+# price // espresso 2, lungo 2.50, dopio 3, quad 5.50. Mlieko + 0.25. Latte 4, Cappuccino 3.50. Idealne to spravit ako dictionary, kedy bude mat espresso priradenu cenu 2.
+# Dictionary
+# items = {
+#    'espresso': 2.00,
+#
+#}
+# price = items[order]
 
 
-items_without_milk = ['Espresso', 'Lungo', 'Dopio', 'Quadruple dopio espresso with extra heartattack for free']
+items_without_milk = ['Espresso', 'Lungo', 'Dopio', 'Cold brew']
 items_without_milk_str = ', '.join(items_without_milk)
 items_with_milk = ['Latte', 'Cappuccino']
+items_with_milk.append('Flat white')
 items_with_milk_str = ', '.join(items_with_milk)
 
-def greet(greeting, name = 'Darling'):
+def greet(greeting):
     print("Hello! Welcome to our coffe shop.")
+
     name = input("What is your name?\n")
+    if not bool(name):
+        name = 'Darling'
+
     age = int(input('What is your age, ' + name + '?\n'))
     if age <= 16:
         print('We are sorry, ' + name + ' we do not anything for you here.')
         exit()
-    else:
-        pass
 
     return name
     
-def final_print(order):
+def final_print(order, quantity):
     we_will = "We will have your "
     ready = " ready in a minute."
-    all_right = "\n\n\nAre you all right, " + name + "? It looks like you are having heartattack. I am calling 911!"
-    if order == items_without_milk[3] and quantity == 1:
-        print(we_will + str(quantity) + " " + order + ready + all_right)
-    elif order == items_without_milk[3] and quantity >= 2:
-        print(we_will + str(quantity) + " Quadruple dopio espressos with extra heartattack for free" + ready + all_right)
-    elif order != items_without_milk[3] and quantity == 1:
+    hot_warning = " Be careful, this drink is hot."
+    if order in items_without_milk[0:3] and quantity == 1:
+        print(we_will + order + ready + '\n' + hot_warning)
+    elif order in items_without_milk[0:3] and quantity >= 2:
+        print(we_will + str(quantity) + " " + order + "s" + ready + '\n' + hot_warning)
+    elif order == items_without_milk[3] and quantity == 1:
         print(we_will + str(quantity) + " " + order + ready)
-    elif order != items_without_milk[3] and quantity >= 2:
+    elif order == items_without_milk[3] and quantity >= 2:
         print (we_will + str(quantity) + " " + order + "s" + ready)
     
     return order
@@ -51,46 +58,73 @@ def evil_status(name):
         else: 
             print("No coffee for you!.")
             exit()
-    elif name != "Ben" or "Pat":
-        pass
 
-    return name
+# int je podmnozina float. prvy riadok vrati float z float a int.
+def calculate_total(price: float, quantity: int) -> float:
+    total = (quantity * price)
+    print_total(total)
+    return total
 
-greeting = 'Hi!'
-name = greet(greeting)
-    
-evil_status(name)
+def print_total(total):
+    print("That will be $" + str(total) + ".")
 
-print("Here is our menu. \n" + items_without_milk_str + ', ' + items_with_milk_str + '.')
-order = input("What would you like?\n")
-
-
-if order == "Lungo":
-    price = 3.50
-elif order == "Dopio":
-    price = 4
-elif order == "Latte":
-    price = 5
-elif order == "Quadruple dopio espresso with extra heartattack for free":
-    price = 4.50
-elif order == "Espresso":
-    milk = input("With oat milk? Or without?\n")
-    if milk == "With":
-      price = 3.25
-    elif milk == "Without":
-      price = 3
+def repeat_order(order, name, total):
+    print('Hello, welcome back ' + name + '!')
+    repeat = input('Should I repeat your last order?\n')
+    if repeat == 'Yes':
+        confirmation = input('Your last order was: ' + order + '. Is it correct?')
+        if confirmation == 'Yes':
+            print_total(total)
     else:
-        print('Please chose valid option.')
-        input()
-else:
-    print("Sorry, we do not have that here.")
-    price = 0
-    exit()
+        get_order(name)
 
-quantity = int(input("How many coffees would you like?\n"))
+def main():
+    #greeting, age check
+    greeting = 'Hi!'
+    name = greet(greeting)
 
-total = (quantity * price)
+    #name, evil status check   
+    evil_status(name)
+    get_order(name)
 
-print("That will be " + str(total) + "$.")
+def get_order(name: str):
+    #menu, order
+    print("Here is our menu. \n" + items_without_milk_str + ', ' + items_with_milk_str + '.')
+    order = input("What would you like?\n")
 
-# pri najblizsej objednavke sa zakaznika spyta, co bola jeho posledna objednavka a ci ju chce zopakovat
+    #price calculation
+    if order == "Lungo":
+        price = 3.50
+    elif order == "Dopio":
+        price = 4
+    elif order == "Latte":
+        price = 5
+    elif order == "Quadruple dopio espresso with extra heartattack for free":
+        price = 4.50
+    elif order == "Espresso":
+        milk = input("With oat milk? Or without?\n")
+        if milk == "With":
+            price = 3.25
+        elif milk == "Without":
+            price = 3
+        else:
+            print('Please chose valid option.')
+            input()
+    else:
+        print("Sorry, we do not have that here.")
+        price = 0
+        exit()
+
+    quantity = int(input("How many coffees would you like?\n"))
+
+    #total price calculation, purchase completion
+    total = calculate_total(price, quantity)
+
+    final_print(order, quantity)
+
+    #when the customer returns the system remembers them
+
+    repeat_order(order, name, total)
+
+if __name__ == "__main__":
+    main()
