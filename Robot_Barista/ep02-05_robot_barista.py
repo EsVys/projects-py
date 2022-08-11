@@ -1,8 +1,7 @@
 # To Do:
-# finish main function
-# fix input name and proper_name
 # input validation - quantity, milk, (age done)
-# write my own file with functions
+# write my own file with functions (example.py) -> call example.my_function
+# move items to main function and call them when needed
 # with the next order the robot will ask if the customer wants to repeat the next order using the variables from functions
 # if the customer does not wish to repeat order start with new order
 
@@ -20,15 +19,10 @@ items_with_milk = {
 }
 items_with_milk_str = str(items_with_milk)
 
-<<<<<<< Updated upstream
-def greet(greeting):
-    print('Hello! Welcome to our coffe shop.')
-=======
 
 
 def greet(greeting: str):
     print(greeting + ' Welcome to our coffe shop.')
->>>>>>> Stashed changes
 
     name = input('What is your name?\n')
     proper_name = {}
@@ -36,20 +30,14 @@ def greet(greeting: str):
     if not bool(name):
         name = 'Darling'
 
-<<<<<<< Updated upstream
-    age = int(input('What is your age, ' + str(proper_name[name]) + '?\n'))
-=======
     return name
 
 def age_validation(age,proper_name):
     age = int(input('What is your age, ' + proper_name + '?\n'))
     validate_input()
->>>>>>> Stashed changes
     if age <= 16:
         print('We are sorry, ' + proper_name + ' we do not anything for you here.')
         exit()
-<<<<<<< Updated upstream
-=======
 
     return age
 
@@ -118,10 +106,7 @@ def get_order(name: str):
 
 #def print_total(total):
     #print('That will be $' + str(total) + '.')
->>>>>>> Stashed changes
         
-    return name
-
 def final_print(order, quantity):
     we_will = 'We will have your '
     ready = ' ready in a minute.'
@@ -137,25 +122,6 @@ def final_print(order, quantity):
     
     return order
 
-def evil_status(name):
-    if (name == 'ben') or (name == 'pat'):
-        evilst = input('Are you evil?\n').lower()
-        if evilst == 'no':
-            print('Oh, come on in!')
-        elif evilst == 'yes' and 4 <= int(input('How many good deeds have you done today?\n')):
-            print('All right, you can have a coffee.')
-        else: 
-            print('No coffee for you!.')
-            exit()
-
-def calculate_total(price: float, quantity: int) -> float:
-    total = (quantity * price)
-    print_total(total)
-    return total
-
-def print_total(total):
-    print('That will be $' + str(total) + '.')
-
 def repeat_order(order, name, total):
     print('Hello, welcome back ' + proper_name + '!')
     repeat = input('Should I repeat your last order?\n').lower()
@@ -167,58 +133,14 @@ def repeat_order(order, name, total):
         get_order(name)
 
 def main():
-<<<<<<< Updated upstream
-    #greeting, age check
-    greeting = 'Hi!'
-    name = greet(greeting)
 
-    #name, evil status check   
-    evil_status(name)
-    get_order(name)
-
-def get_order(name: str):
-    #menu, order
-    print('Here is our menu. \n' + items_without_milk_str + ', ' + items_with_milk_str + '.')
-    order = input('What would you like?\n').lower()
-
-    #price calculation
-    if order == 'lungo':
-        price = 3.50
-    elif order == 'dopio':
-        price = 4
-    elif order == 'latte':
-        price = 5
-    elif order == 'espresso':
-        milk = input('With oat milk? Or without?\n').lower()
-        if milk == 'with':
-            price = 3.25
-        elif milk == 'without':
-            price = 3
-        else:
-            print('Please chose valid option.')
-            input().lower()
-    else:
-        print('Sorry, we do not have that here.')
-        price = 0
-        exit()
-
-    quantity = int(input('How many coffees would you like?\n'))
-
-    #total price calculation, purchase completion
-    total = calculate_total(price, quantity)
-
-    final_print(order, quantity)
-=======
     greeting = 'Hello!'
     name = greet(greeting)
     age = validate_input()
     evil_status(name)
     get_order(name)
->>>>>>> Stashed changes
 
-    #when the customer returns, the system remembers them
 
-    repeat_order(order, name, total)
 
 if __name__ == "__main__":
     main()
