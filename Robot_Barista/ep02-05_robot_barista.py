@@ -1,5 +1,5 @@
 # To Do:
-# input validation - quantity, milk, (age done)
+# input validation - quantity, milk, (age not done)
 # write my own file with functions (example.py) -> call example.my_function
 # move items to main function and call them when needed
 # with the next order the robot will ask if the customer wants to repeat the next order using the variables from functions
@@ -22,7 +22,7 @@ items_with_milk_str = str(items_with_milk)
 
 
 def greet(greeting: str):
-    print(greeting + ' Welcome to our coffe shop.')
+    print(greeting + ' Welcome to our coffee shop.')
 
     name = input('What is your name?\n')
     proper_name = {}
@@ -33,25 +33,24 @@ def greet(greeting: str):
     return name
 
 def age_validation(age,proper_name):
-    age = int(input('What is your age, ' + proper_name + '?\n'))
     if age <= 16:
-        print('We are sorry, ' + proper_name + ' we do not anything for you here.')
+        print('We are sorry, ' + proper_name + ' we do not have anything for you here.')
         exit()
 
     return age
 
-def validate_input(age):
-    age = input('What is your age?\n')
+def validate_input_age(age):
+    age = int(input('What is your age, ' + proper_name + '?\n'))
     try:
         age = int(age)
         age_validation(age,proper_name)
         if age <= 0:
             print('The value is not correct, only positive numbers are allowed.')
-            return validate_input()
+            return validate_input_age()
         return age
     except ValueError:
         print('The value is not correct, only numbers are allowed.')
-        return validate_input()
+        return validate_input_age()
 
 def evil_status(name):
     if (name == 'ben') or (name == 'pat'):
@@ -85,8 +84,22 @@ def get_order(name: str):
         print('Sorry, we do not have that here.')
         exit()
     quantity = int(input('How many coffees would you like?\n'))
+    validate_input_quantity()
     total = float(price) * float(quantity)
     print('The price is $' + str(total) + '.')
+
+def validate_input_quantity(quantity):
+    try:
+        quantity = int(quantity)
+        if quantity is <= 0:
+            print('The value is not correct, only positive numbers are allowed.')
+            return validate_input_quantity()
+        return quantity
+    except ValueError:
+        print('The value is not correct, only numbers are allowed.')
+        return validate_input_quantity()
+        
+    return quantity
 
 
     #total price calculation, purchase completion
@@ -135,7 +148,7 @@ def main():
 
     greeting = 'Hello!'
     name = greet(greeting)
-    age = validate_input()
+    age = validate_input_age()
     evil_status(name)
     get_order(name)
 
