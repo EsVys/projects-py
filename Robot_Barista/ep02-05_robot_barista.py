@@ -34,18 +34,17 @@ def greet(greeting: str):
 
 def age_validation(age,proper_name):
     age = int(input('What is your age, ' + proper_name + '?\n'))
-    validate_input()
     if age <= 16:
         print('We are sorry, ' + proper_name + ' we do not anything for you here.')
         exit()
 
     return age
 
-def validate_input():
+def validate_input(age):
     age = input('What is your age?\n')
     try:
         age = int(age)
-        # use age_validation
+        age_validation(age,proper_name)
         if age <= 0:
             print('The value is not correct, only positive numbers are allowed.')
             return validate_input()
