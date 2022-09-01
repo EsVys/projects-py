@@ -1,5 +1,6 @@
 # To Do:
-# input validation - quantity, milk, (age not done)
+# input validation - quantity, milk, age - done?
+# fix price calcuation (milk)
 # write my own file with functions (example.py) -> call example.my_function
 # move items to main function and call them when needed
 # with the next order the robot will ask if the customer wants to repeat the next order using the variables from functions
@@ -21,7 +22,7 @@ items_with_milk_str = str(items_with_milk)
 
 
 
-def greet(greeting: str):
+def greet(greeting: str):                                                              # function sheet not working
     print(greeting + ' Welcome to our coffee shop.')
 
     name = input('What is your name?\n')
@@ -42,15 +43,15 @@ def age_validation(age,proper_name):
 def validate_input_age(age):
     age = int(input('What is your age, ' + proper_name + '?\n'))
     try:
-        age = int(age)
-        age_validation(age,proper_name)
+        age = int(age)                                                                 # huh? age = int(int(age))?!
+        age_validation(age,proper_name)                                                # merge function validate_input_age and age_validation?
         if age <= 0:
             print('The value is not correct, only positive numbers are allowed.')
             return validate_input_age()
         return age
     except ValueError:
         print('The value is not correct, only numbers are allowed.')
-        return validate_input_age()
+        return validate_input_age(age)
 
 def evil_status(name):
     if (name == 'ben') or (name == 'pat'):
@@ -63,12 +64,16 @@ def evil_status(name):
             print('No coffee for you!.')
             exit()
 
-def add_milk(price_without_milk: int):
+def add_milk(price_without_milk: float):
     milk = input('Do you wish to add oat milk?\n').lower()
     if milk == 'yes': 
         return price_without_milk + 0.25
     elif milk == 'no':
         return price_without_milk
+    elif milk != 'yes' or milk != 'no':
+        print('The value is not correct, please chose valid option.')
+        return add_milk(milk)
+    return price_without_milk
 
 def get_order(name: str):
     #menu, order
@@ -91,7 +96,7 @@ def get_order(name: str):
 def validate_input_quantity(quantity):
     try:
         quantity = int(quantity)
-        if quantity is <= 0:
+        if quantity <= 0:
             print('The value is not correct, only positive numbers are allowed.')
             return validate_input_quantity()
         return quantity
@@ -148,11 +153,12 @@ def main():
 
     greeting = 'Hello!'
     name = greet(greeting)
-    age = validate_input_age()
+    age = validate_input_age()                              # just validate_input_age?
     evil_status(name)
+    milk = add_milk()
     get_order(name)
 
 
 
 if __name__ == "__main__":
-    main()
+    main()                                                  # what should be in main then?
