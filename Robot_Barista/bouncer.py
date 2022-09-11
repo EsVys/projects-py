@@ -1,6 +1,6 @@
-def age_validation(age: int, proper_name: str):
-    if age <= 16:
-        print('We are sorry, ' + proper_name + ' we do not have anything for you here.')
+def age_validation(age: int, name: str):
+    if age < 16:
+        print('We are sorry, ' + name + ' we do not have anything for you here.')
         exit()
 
 def validate_input_age(name):
@@ -10,11 +10,11 @@ def validate_input_age(name):
         age_validation(age, name)                                                
         if age <= 0:
             print('The value is not correct, only positive numbers are allowed.')
-            return validate_input_age()
+            return validate_input_age(name)
         return age
     except ValueError:
         print('The value is not correct, only numbers are allowed.')
-        return validate_input_age(age)
+        return validate_input_age(name)
 
 def evil_status(name):
     if (name == 'ben') or (name == 'pat'):

@@ -24,7 +24,6 @@ def add_milk(price_without_milk: float):
     return price_without_milk
 
 def get_order(name: str):
-    #menu, order
     print('Here is our menu. \n' + items_without_milk_str + ', ' + items_with_milk_str + '.')
     order = input('What would you like?\n').lower()
 
@@ -41,6 +40,8 @@ def get_order(name: str):
     total = float(price) * float(quantity)
     print('The price is $' + str(total) + '.')
 
+    return order
+    
 def validate_input_quantity(quantity):
     try:
         quantity = int(quantity)
@@ -52,3 +53,17 @@ def validate_input_quantity(quantity):
         print('The value is not correct, only numbers are allowed.')
         return validate_input_quantity()
         
+def final_print(order, quantity):
+    we_will = 'We will have your '
+    ready = ' ready in a minute.'
+    hot_warning = 'Be careful, this drink is hot.'
+    #if order in items_without_milk[0:3] and quantity == 1:
+        #print(we_will + order + ready + '\n' + hot_warning)
+    #elif order in items_without_milk[0:3] and quantity >= 2:
+        #print(we_will + str(quantity) + " " + order + 's' + ready + '\n' + hot_warning)
+    #elif order == items_without_milk[3] and quantity == 1:
+        #print(we_will + str(quantity) + " " + order + ready)
+    # elif order == items_without_milk[3] and quantity >= 2:
+        #print (we_will + str(quantity) + " " + order + 's' + ready)
+    
+    return order
