@@ -26,25 +26,21 @@ def greet(greeting: str):                                                       
     print(greeting + ' Welcome to our coffee shop.')
 
     name = input('What is your name?\n')
-    proper_name = {}
-    proper_name[name.lower()] = name
     if not bool(name):
         name = 'Darling'
 
     return name
 
-def age_validation(age,proper_name):
+def age_validation(age: int, proper_name: str):
     if age <= 16:
         print('We are sorry, ' + proper_name + ' we do not have anything for you here.')
         exit()
 
-    return age
-
-def validate_input_age(age):
-    age = int(input('What is your age, ' + proper_name + '?\n'))
+def validate_input_age(name):
+    age = input('What is your age, ' + name + '?\n')
     try:
-        age = int(age)                                                                 # huh? age = int(int(age))?!
-        age_validation(age,proper_name)                                                # merge function validate_input_age and age_validation?
+        age = int(age)                                                                
+        age_validation(age, name)                                                
         if age <= 0:
             print('The value is not correct, only positive numbers are allowed.')
             return validate_input_age()
@@ -89,7 +85,7 @@ def get_order(name: str):
         print('Sorry, we do not have that here.')
         exit()
     quantity = int(input('How many coffees would you like?\n'))
-    validate_input_quantity()
+    validate_input_quantity(quantity)
     total = float(price) * float(quantity)
     print('The price is $' + str(total) + '.')
 
@@ -153,11 +149,9 @@ def main():
 
     greeting = 'Hello!'
     name = greet(greeting)
-    age = validate_input_age()                              # just validate_input_age?
+    age = validate_input_age(name)                              
     evil_status(name)
-    milk = add_milk()
     get_order(name)
-
 
 
 if __name__ == "__main__":
