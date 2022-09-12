@@ -10,12 +10,12 @@ import greet
 def main():
     greeting = 'Hello!'
     name = greet.greet(greeting)
-    age = bouncer.validate_input_age(name)                              
+    age = bouncer.validate_input_age(name)
+    #order = barista.get_order(name)
+    #quantity = barista.get_order(name)                             
     bouncer.evil_status(name)
     barista.get_order(name)
-    # barista.final_print(order)
-        # add to barista special category for cold brew
-    # get order from get_order
+    # barista.final_print(order, quantity)
 
 
 if __name__ == "__main__":

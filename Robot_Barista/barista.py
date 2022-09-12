@@ -1,10 +1,17 @@
+from weakref import finalize
+
+
 items_without_milk = {
     'espresso': 2.00,
     'lungo': 2.50,
-    'dopio': 3.00,
-    'cold brew': 2.50
+    'dopio': 3.00
 }
 items_without_milk_str = str(items_without_milk)
+
+items_without_milk_cold = {
+    'cold brew': 2.50
+}
+items_without_milk_cold_str = str(items_without_milk_cold)
 
 items_with_milk = {
     'latte': 4.00,
@@ -24,12 +31,14 @@ def add_milk(price_without_milk: float):
     return price_without_milk
 
 def get_order(name: str):
-    print('Here is our menu. \n' + items_without_milk_str + ', ' + items_with_milk_str + '.')
+    print('Here is our menu. \n' + items_without_milk_str + ', ' + items_without_milk_cold_str + ', ' + items_with_milk_str + '.')
     order = input('What would you like?\n').lower()
 
     #price calculation
     if order in items_without_milk:
         price = add_milk(items_without_milk[order])
+    elif order in items_without_milk_cold:
+        price = add_milk(items_without_milk_cold[order])
     elif order in items_with_milk:
         price = items_with_milk[order]
     else:
@@ -39,8 +48,8 @@ def get_order(name: str):
     validate_input_quantity(quantity)
     total = float(price) * float(quantity)
     print('The price is $' + str(total) + '.')
-
-    return order
+    final_print(order, quantity)
+    return order, quantity
     
 def validate_input_quantity(quantity):
     try:
@@ -52,18 +61,16 @@ def validate_input_quantity(quantity):
     except ValueError:
         print('The value is not correct, only numbers are allowed.')
         return validate_input_quantity()
-        
+
 def final_print(order, quantity):
     we_will = 'We will have your '
     ready = ' ready in a minute.'
-    hot_warning = 'Be careful, this drink is hot.'
-    #if order in items_without_milk[0:3] and quantity == 1:
-        #print(we_will + order + ready + '\n' + hot_warning)
-    #elif order in items_without_milk[0:3] and quantity >= 2:
-        #print(we_will + str(quantity) + " " + order + 's' + ready + '\n' + hot_warning)
-    #elif order == items_without_milk[3] and quantity == 1:
-        #print(we_will + str(quantity) + " " + order + ready)
-    # elif order == items_without_milk[3] and quantity >= 2:
-        #print (we_will + str(quantity) + " " + order + 's' + ready)
-    
-    return order
+    if quantity == 1:
+        print(we_will + order + ready)
+    else:
+        print(we_will + order + ('s') + ready)
+    hot_warning(order)
+   
+def hot_warning(order):
+    if not order in items_without_milk_cold:
+        print('Be careful, this drink is hot.')
